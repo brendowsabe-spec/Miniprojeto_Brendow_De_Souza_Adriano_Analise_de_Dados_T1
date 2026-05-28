@@ -2,7 +2,7 @@
 
 #Importando a biblioteca Pandas para análise dos dados do arquivo.csv
 import pandas as pd
-#importando dados da Base_Varejo.csv do Kaggle
+#importando dados da Base_Varejo.csv do Kaggle: https://www.kaggle.com/datasets/namespaiva/base-varejo/data
 pd.read_csv('Base_Varejo.csv')
 
 print(pd.read_csv('Base_Varejo.csv'))
