@@ -1,21 +1,23 @@
 #Análise Exploratória da base Varejo
-
+def linha():
+    print('-='*30)
 #Importando a biblioteca Pandas para análise dos dados do arquivo.csv
 import pandas as pd
-#importando dados da Base_Varejo.csv do Kaggle: https://www.kaggle.com/datasets/namespaiva/base-varejo/data
-pd.read_csv('Base_Varejo.csv')
+#Importando dados da Base_Varejo.csv do Kaggle: https://www.kaggle.com/datasets/namespaiva/base-varejo/data
+data = pd.read_csv('Base_Varejo.csv',sep=';') #Importando csv base de dados com nome de data
 
-print(pd.read_csv('Base_Varejo.csv'))
-
-#Carregar a base Varejo.csv com pandas e mostrar:
-#número de registros
-
-
-#colunas
-
-
+print(data) #para mostrar na tela os dados inteiros
+linha()
+#número de registros #numero de colunas
+print(f'O dataset possui {data.shape[0]} registros(linhas) e {data.shape[1]} colunas.')
+linha()
 #tipos de dados
-
+data.info()
+linha()
+for i in list(data.columns): #Demonstra todas as colunas
+    print(i, end=',')
+linha()
+print(len(data.index)) #Contagem de todas as linhas
 
 #dois problemas básicos: valores nulos por coluna, duplicatas e possíveis inconsistências (ex.: datas inválidas ou categorias vazias)
 
