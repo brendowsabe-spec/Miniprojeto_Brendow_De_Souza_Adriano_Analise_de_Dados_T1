@@ -18,7 +18,6 @@
 # Durante o processo deste código, iremos analisar dados de uma base de varejo em arquivo .csv, para localizar dados e fazer o tratamento ideal.
 1. Iremos utilizar o arquivo main.py para poder iniciar a análise de dados, em base será utilizado o arquivo Base_Varejo.csv
 
-
 # FALAR SOBRE:
 1. reflexão teórica obrigatória sobre ETL e qualidade de dados
 2. 3-6 tópicos com insights obtidos da análise dos dados

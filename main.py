@@ -1,23 +1,52 @@
 #Análise Exploratória da base Varejo
-def linha():
-    print('-='*30)
-#Importando a biblioteca Pandas para análise dos dados do arquivo.csv
-import pandas as pd
-#Importando dados da Base_Varejo.csv do Kaggle: https://www.kaggle.com/datasets/namespaiva/base-varejo/data
-data = pd.read_csv('Base_Varejo.csv',sep=';') #Importando csv base de dados com nome de data
+def linha(): #Feito função para criar linhas separados durante a analise
+    print('-='*50)
 
-print(data) #para mostrar na tela os dados inteiros
+import pandas as pd #Importando a biblioteca Pandas para análise dos dados do arquivo.csv
+#Importando dados da Base_Varejo.csv do Kaggle: https://www.kaggle.com/datasets/namespaiva/base-varejo/data
+
+df = pd.read_csv('Base_Varejo.csv',sep=';') #Importando csv base de dados com nome de data, utilizado "sep=';'" para determinar que o separador é ';' 
+
+for n in range(1): #for para demonstrar o passo inicial da manipulação
+    linha()
+    print(f"OS 10 PRIMEIROS REGISTROS DE NOSSA BASE DE DADOS:\n\n{df.head(10)}") #para mostrar na tela apenas os 10 primeiros dados
+    linha()
+
+print(f'O dataset original possui {df.shape[0]} registros(linhas) e {df.shape[1]} colunas.') #número de registros #numero de colunas
 linha()
-#número de registros #numero de colunas
-print(f'O dataset possui {data.shape[0]} registros(linhas) e {data.shape[1]} colunas.')
+print('Nome de todas as colunas:', end=' ')
+for i in list(df.columns): #Demonstra todas as colunas
+    print(i, end='. ') #Titulo de cada coluna
+print()
 linha()
-#tipos de dados
-data.info()
+#Contagem de todas as linhas #contagem de todas as colunas - #print(f'A Base_Varejo.csv tem inicialmente: {len(df.columns)} colunas e {len(df.index)} linhas.')
+#print(df.shape) #Mostra numero de linhas(index) e colunas(columns) #print(df.fillna(0, inplace=True))) #troca o NaN por 0
+print(2)
+df.info() # informações de itens por cada titulo-coluna, tipos de dados.
 linha()
-for i in list(data.columns): #Demonstra todas as colunas
-    print(i, end=',')
+print(4)
+print(df.describe()) #Descreve quartis, estatiscas gerais matematicas do DataFrame
 linha()
-print(len(data.index)) #Contagem de todas as linhas
+print(df.isnull().sum()) #Soma os locais que estão sem dados (NaN)
+linha()
+print(df.isnull()) #mostra como True os espaços sem dados (NaN)
+linha()
+Masculino = df[df['CL_GENERO'] == 'M'] #feito para manter apenas os que aparecem M (sendo masculino)
+print(Masculino)
+linha()
+print(df.dtypes) #Mostra os tipos de dados de cada coluna
+linha()
+print(df.duplicated().sum()) #soma das linhas repetidas
+linha()
+#df.dropna() #remove linha que tenha 1 nulo (cuidado)
+#df.dropna(how='all') #remove só onde todas colunas sao nula
+#df.dropna(subset=['email']) #remove apenas onde 'email' é nula
+#df.dropna(thresh=5) #mantem linhas que tem pelo menos 5 valores nao nulos.
+print(df.dropna(axis=1, how='all')) #remove colunas que estejam com nulos NaN (axis=1 é coluna, how='all' é todas que contenham NaN)
+print(len(df))
+df_limpo = df.dropna(axis=1, how='all')
+print(len(df))
+print(df_limpo.head(10))
 
 #dois problemas básicos: valores nulos por coluna, duplicatas e possíveis inconsistências (ex.: datas inválidas ou categorias vazias)
 
