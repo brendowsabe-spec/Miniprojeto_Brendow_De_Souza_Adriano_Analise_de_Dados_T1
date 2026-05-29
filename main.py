@@ -1,54 +1,52 @@
 #Análise Exploratória da base Varejo
 def linha(): #Feito função para criar linhas separados durante a analise
     print('-='*50)
-
 import pandas as pd #Importando a biblioteca Pandas para análise dos dados do arquivo.csv
 #Importando dados da Base_Varejo.csv do Kaggle: https://www.kaggle.com/datasets/namespaiva/base-varejo/data
-
 df = pd.read_csv('Base_Varejo.csv',sep=';') #Importando csv base de dados com nome de data, utilizado "sep=';'" para determinar que o separador é ';' 
-
 for n in range(1): #for para demonstrar o passo inicial da manipulação
     linha()
     print(f"OS 10 PRIMEIROS REGISTROS DE NOSSA BASE DE DADOS:\n\n{df.head(10)}") #para mostrar na tela apenas os 10 primeiros dados
     linha()
-
 print(f'O dataset original possui {df.shape[0]} registros(linhas) e {df.shape[1]} colunas.') #número de registros #numero de colunas
 linha()
+#PRIMEIRAMENTE FAREI A LIMPEZA DAS COLUNAS E LINHAS COM DADOS REPETIDOS, INCONSISTENTES E NULOS.
+#dois problemas básicos: valores nulos por coluna, duplicatas e possíveis inconsistências (ex.: datas inválidas ou categorias vazias)
+df_limpo = df.dropna(axis=1, how='all') #remove colunas que estejam com nulos NaN (axis=1 é coluna, how='all' é todas que contenham NaN) - Escolhido pois fica mais limpo o codigo
+df_limpo = df_limpo.drop_duplicates() #remoção das linhas com itens copiados identicos
+print(f'Linhas antes: {len(df)}')
+print(f'Linhas repetidas: {df.duplicated().sum()}') #soma das linhas repetidas
+print(f'Linhas depois: {len(df_limpo)}')
+linha()
+print(df_limpo.head(10)) #Removidas e printadas ultimas colunas que estavam vazias com dados NaN
+
 print('Nome de todas as colunas:', end=' ')
-for i in list(df.columns): #Demonstra todas as colunas
-    print(i, end='. ') #Titulo de cada coluna
+for i in list(df_limpo.columns): #Demonstra todas as colunas
+    print(i, end=' ') #Titulo de cada coluna
 print()
 linha()
-#Contagem de todas as linhas #contagem de todas as colunas - #print(f'A Base_Varejo.csv tem inicialmente: {len(df.columns)} colunas e {len(df.index)} linhas.')
-#print(df.shape) #Mostra numero de linhas(index) e colunas(columns) #print(df.fillna(0, inplace=True))) #troca o NaN por 0
-print(2)
-df.info() # informações de itens por cada titulo-coluna, tipos de dados.
+print('Informações de itens, tipos de dados:')
+df_limpo.info() # informações de itens por cada titulo-coluna, tipos de dados.
 linha()
-print(4)
-print(df.describe()) #Descreve quartis, estatiscas gerais matematicas do DataFrame
+print('Quartis, estatisticas gerais:')
+print(df_limpo.describe()) #Descreve quartis, estatiscas gerais matematicas do DataFrame
 linha()
-print(df.isnull().sum()) #Soma os locais que estão sem dados (NaN)
+print('Soma locais com dados = NaN:')
+print(df_limpo.isnull().sum()) #Soma os locais que estão sem dados (NaN)
 linha()
-print(df.isnull()) #mostra como True os espaços sem dados (NaN)
+print('NaN como True:')
+print(df_limpo.isnull()) #mostra como True os espaços sem dados (NaN)
 linha()
-Masculino = df[df['CL_GENERO'] == 'M'] #feito para manter apenas os que aparecem M (sendo masculino)
-print(Masculino)
+print('Seleção apenas de masculinos:')
+Masculino = df_limpo[df_limpo['CL_GENERO'] == 'M'] #feito para manter apenas os que aparecem M (sendo masculino)
+print(Masculino.head(10))
 linha()
-print(df.dtypes) #Mostra os tipos de dados de cada coluna
+print('Tipos de dados das colunas:')
+print(df_limpo.dtypes) #Mostra os tipos de dados de cada coluna
 linha()
-print(df.duplicated().sum()) #soma das linhas repetidas
-linha()
-#df.dropna() #remove linha que tenha 1 nulo (cuidado)
-#df.dropna(how='all') #remove só onde todas colunas sao nula
-#df.dropna(subset=['email']) #remove apenas onde 'email' é nula
-#df.dropna(thresh=5) #mantem linhas que tem pelo menos 5 valores nao nulos.
-print(df.dropna(axis=1, how='all')) #remove colunas que estejam com nulos NaN (axis=1 é coluna, how='all' é todas que contenham NaN)
-print(len(df))
-df_limpo = df.dropna(axis=1, how='all')
-print(len(df))
-print(df_limpo.head(10))
 
-#dois problemas básicos: valores nulos por coluna, duplicatas e possíveis inconsistências (ex.: datas inválidas ou categorias vazias)
+
+
 
 #três etapas de limpeza mínima necessária: remover ou imputar nulos (explique a escolha), eliminar duplicatas relevantes e ajustar tipos de dados (ex.: converter coluna DATA para datetime)
 

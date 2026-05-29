@@ -1,0 +1,8 @@
+#Contagem de todas as linhas #contagem de todas as colunas - #print(f'A Base_Varejo.csv tem inicialmente: {len(df.columns)} colunas e {len(df.index)} linhas.')
+#print(df.shape) #Mostra numero de linhas(index) e colunas(columns) #print(df.fillna(0, inplace=True))) #troca o NaN por 0
+
+
+#df.dropna() #remove linha que tenha 1 nulo (cuidado)
+#df.dropna(how='all') #remove linha só onde todas colunas sao nula
+#df.dropna(subset=['email']) #remove linha apenas onde 'email' é nula
+#df.dropna(thresh=5) #mantem linhas que tem pelo menos 5 valores nao nulos.
